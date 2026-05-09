@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Participant extends Model
 {
     protected $fillable = [
-        'user_id', 
+        'user_id',
         'event_id'
     ];
 
@@ -16,7 +16,7 @@ class Participant extends Model
     }
 
     public function event () {
-        return $this->belongTo(Event::class);
+        return $this->belongsTo(Event::class);
     }
     //
 }

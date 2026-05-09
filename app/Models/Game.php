@@ -8,7 +8,7 @@ class Game extends Model
 {
     protected $fillable = ['name'];
 
-    public function event() {
+    public function events() {
         return $this->hasMany(Event::class);
     }
     //

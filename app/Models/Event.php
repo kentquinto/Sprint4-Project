@@ -8,13 +8,13 @@ class Event extends Model
 {
     protected $fillable = [
     'title',
-    'description', 
-    'location', 
+    'description',
+    'location',
     'entry_fee',
     'max_players',
-    'date_time', 
-    'status', 
-    'creator_id', 
+    'date_time',
+    'status',
+    'creator_id',
     'game_id'
     ];
 
@@ -27,7 +27,7 @@ class Event extends Model
     }
 
     public function participants () {
-        return $this->belongsToMany(Participant::class, 'participants');
+        return $this->belongsToMany(User::class, 'participants');
     }
     //
 }
