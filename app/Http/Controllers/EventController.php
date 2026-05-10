@@ -13,11 +13,13 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::with('game','creator')->latest()->get();
+        $events = Event::with('game', 'creator', 'participants')
+            ->when($request->game, fn($q) => $q->where('game_id', $request->game))
+            ->latest()
+            ->get();
         return view('events.index', compact('events'));
-        //
     }
 
     /**
