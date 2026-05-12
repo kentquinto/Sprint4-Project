@@ -2,9 +2,6 @@
     <!-- Hero -->
     <div class="bg-[#1C1917] border-b-4 border-[#FCD34D]">
         <div class="max-w-5xl mx-auto px-6 py-14 text-center">
-            <p class="text-[#FCD34D] text-xs font-bold uppercase tracking-widest mb-4" style="font-family:'Syne',sans-serif;">
-                Season 2026 — Now Live
-            </p>
             <h1 class="text-4xl font-bold text-[#FFFDF7] leading-tight mb-6" style="font-family:'Syne',sans-serif;">
                 Your TCG Tournament<br><span class="text-[#FCD34D]">Hub.</span>
             </h1>

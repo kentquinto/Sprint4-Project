@@ -14,8 +14,9 @@
     <div class="max-w-5xl mx-auto px-6 py-6">
 
         <!-- Game filter tabs -->
-        <div class="border-b-2 border-[#E8E0CC] mb-8 flex gap-0 overflow-x-auto">
+        <div id="filter-scroll" class="border-b-2 border-[#E8E0CC] mb-8 flex gap-0 overflow-x-auto">
             <a href="{{ route('events.index') }}"
+               @if(!request('game')) data-active="1" @endif
                class="px-3 py-3 text-xs font-bold border-b-4 whitespace-nowrap transition {{ !request('game') ? 'border-[#FCD34D] text-[#1C1917]' : 'border-transparent text-[#78716C] hover:text-[#1C1917]' }}"
                style="font-family:'Syne',sans-serif;">
                 All Events
@@ -41,6 +42,7 @@
                     $active = request('game') == $game->id;
                 @endphp
                 <a href="{{ route('events.index', ['game' => $game->id]) }}"
+                   @if($active) data-active="1" @endif
                    class="px-3 py-3 text-xs font-bold border-b-4 whitespace-nowrap transition"
                    style="font-family:'Syne',sans-serif;
                           border-bottom-color: {{ $active ? $c['border'] : 'transparent' }};
@@ -49,6 +51,13 @@
                 </a>
             @endforeach
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const active = document.querySelector('#filter-scroll [data-active]');
+                if (active) active.scrollIntoView({ inline: 'center', block: 'nearest' });
+            });
+        </script>
 
         @php
             $gameColors = [

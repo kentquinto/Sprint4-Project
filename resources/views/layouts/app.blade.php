@@ -25,6 +25,9 @@
                     <a href="{{ route('dashboard') }}" class="text-[#A8A29E] hover:text-[#FCD34D] text-sm font-normal transition">
                         Dashboard
                     </a>
+                    <a href="{{ route('profile.edit') }}" class="text-[#A8A29E] hover:text-[#FCD34D] text-sm font-normal transition">
+                        {{ auth()->user()->name }}
+                    </a>
                     <a href="{{ route('events.create') }}" class="bg-[#FCD34D] text-[#1C1917] text-sm font-normal px-4 py-2.5 rounded-md hover:bg-yellow-300 transition" style="font-family: 'Syne', sans-serif;">
                         + Create Event
                     </a>
