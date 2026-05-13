@@ -34,6 +34,6 @@ class User extends Authenticatable
         return $this->hasMany(Event::class, 'creator_id');
     }
     public function participatingEvents() {
-        return $this->belongsToMany(Event:: class, 'participants');
+        return $this->belongsToMany(Event::class, 'participants');
     }
 }

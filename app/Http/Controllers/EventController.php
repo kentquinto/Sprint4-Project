@@ -46,7 +46,7 @@ class EventController extends Controller
             'date_time'     => 'required|date',
             'game_id'       => 'required|exists:games,id',
         ]);
-        Event:: create([
+        Event::create([
             ...$request->only(['title', 'description', 'location', 'entry_fee', 'max_players', 'date_time', 'game_id']),
             'creator_id'    => Auth::id(),
             'status'        => 'upcoming',
@@ -62,7 +62,6 @@ class EventController extends Controller
     {
         $event->load('game', 'creator', 'participants');
         return view('events.show', compact('event'));
-        //
     }
 
     /**
@@ -101,7 +100,6 @@ class EventController extends Controller
 
         return redirect()->route('events.show', $event);
     }
-        //
 
     /**
      * Remove the specified resource from storage.

@@ -19,6 +19,5 @@ class DatabaseSeeder extends Seeder
             GameSeeder::class,
             EventSeeder::class,
         ]);
-        // User::factory(10)->create();
     }
 }
