@@ -13,11 +13,13 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::with('game','creator')->latest()->get();
+        $events = Event::with('game', 'creator', 'participants')
+            ->when($request->game, fn($q) => $q->where('game_id', $request->game))
+            ->latest()
+            ->get();
         return view('events.index', compact('events'));
-        //
     }
 
     /**
@@ -44,7 +46,7 @@ class EventController extends Controller
             'date_time'     => 'required|date',
             'game_id'       => 'required|exists:games,id',
         ]);
-        Event:: create([
+        Event::create([
             ...$request->only(['title', 'description', 'location', 'entry_fee', 'max_players', 'date_time', 'game_id']),
             'creator_id'    => Auth::id(),
             'status'        => 'upcoming',
@@ -60,7 +62,6 @@ class EventController extends Controller
     {
         $event->load('game', 'creator', 'participants');
         return view('events.show', compact('event'));
-        //
     }
 
     /**
@@ -99,7 +100,6 @@ class EventController extends Controller
 
         return redirect()->route('events.show', $event);
     }
-        //
 
     /**
      * Remove the specified resource from storage.

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string ('title', 45);
-            $table->string ('description', 2000)->nullable();
-            $table->string ('location', 25)->mullable();
+            $table->string ('description', 2000);
+            $table->string ('location', 45)->nullable();
             $table->decimal ('entry_fee', 8, 2)->default(0);
             $table->integer ('max_players');
             $table->dateTime('date_time');

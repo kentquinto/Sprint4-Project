@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             GameSeeder::class,
+            EventSeeder::class,
         ]);
-        // User::factory(10)->create();
     }
 }

@@ -21,7 +21,7 @@ class GameSeeder extends Seeder
             'League of Legends Riftbound',
             'Disney Lorcana',
             'Dragon Ball Super Card Game',
-            'Stars Wars Unlimited',
+            'Star Wars: Unlimited',
             'Final Fantasy TCG',
             'Flesh and Blood',
             'Digimon Card Game',

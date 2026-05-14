@@ -20,6 +20,12 @@ class ParticipantController extends Controller
         if ($event->creator_id === Auth::id()) {
             return back()->with('error', 'You cannot join your own event');
         }
+        if ($event->participants()->count() >= $event->max_players) {
+            return back()->with('error', 'You cannot join, the event is already full');
+        }
+        if ($event->status === 'cancelled' || $event->status === 'finished') {
+            return back()->with('error', 'You cannot join, the event is already finished or cancelled');
+        }
 
         Participant::create([
             'event_id' => $event->id,
