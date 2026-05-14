@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="max-w-2xl mx-auto px-6 py-6">
+    <div class="max-w-xl mx-auto px-6 py-6">
 
-        <a href="{{ route('events.show', $event) }}" class="text-[#78716C] hover:text-[#FCD34D] text-sm font-semibold mb-8 inline-block transition">
+        <a href="{{ route('events.show', $event) }}" class="text-[#78716C] hover:text-[#FCD34D] text-sm font-normal mb-8 inline-block transition">
             ← Back to Event
         </a>
 
@@ -17,7 +17,7 @@
             <div>
                 <label class="block text-xs font-semibold uppercase tracking-widest text-[#A8A29E] mb-2" style="font-family:'Syne',sans-serif;">Event Title</label>
                 <input type="text" name="title" value="{{ old('title', $event->title) }}"
-                       class="w-full border-2 border-[#E8E0CC] rounded-lg px-4 py-3 text-sm font-normal text-[#1C1917] focus:outline-none focus:border-[#FCD34D] transition bg-[#FFFDF7]">
+                       class="w-full border-2 border-[#E8E0CC] rounded-lg px-4 py-4 text-sm font-normal text-[#1C1917] focus:outline-none focus:border-[#FCD34D] transition bg-[#FFFDF7]">
                 @error('title') <p class="text-red-600 text-xs font-semibold mt-1">{{ $message }}</p> @enderror
             </div>
 
