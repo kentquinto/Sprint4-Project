@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'bio', 'country', 'favorite_game_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -33,7 +33,12 @@ class User extends Authenticatable
     public function createdEvents() {
         return $this->hasMany(Event::class, 'creator_id');
     }
+
     public function participatingEvents() {
         return $this->belongsToMany(Event::class, 'participants');
+    }
+
+    public function favoriteGame() {
+        return $this->belongsTo(Game::class, 'favorite_game_id');
     }
 }
