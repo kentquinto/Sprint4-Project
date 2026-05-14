@@ -40,4 +40,7 @@ Route::middleware('auth')->group(function () {
 // Wildcard show route last so specific routes above are matched first
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
+// Public player profiles
+Route::get('/players/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
 require __DIR__.'/auth.php';

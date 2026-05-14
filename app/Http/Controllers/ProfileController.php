@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Game;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +19,26 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user'  => $request->user(),
+            'games' => Game::all(),
         ]);
+    }
+
+    public function show(User $user): View
+    {
+        $user->load('favoriteGame');
+
+        $finishedEvents = $user->participatingEvents()
+            ->where('status', 'finished')
+            ->with('game')
+            ->get();
+
+        $upcomingEvents = $user->participatingEvents()
+            ->whereIn('status', ['upcoming', 'ongoing'])
+            ->with('game')
+            ->get();
+
+        return view('profile.show', compact('user', 'finishedEvents', 'upcomingEvents'));
     }
 
     /**
