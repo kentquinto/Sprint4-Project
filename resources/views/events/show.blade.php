@@ -129,9 +129,10 @@
             @else
                 <div class="flex flex-wrap gap-3">
                     @foreach($event->participants as $p)
-                        <div class="bg-[#FFFDF7] border-2 border-[#E8E0CC] px-4 py-2 rounded-md text-sm font-normal text-[#1C1917]">
+                        <a href="{{ route('profile.show', $p) }}"
+                           class="bg-[#FFFDF7] border-2 border-[#E8E0CC] px-4 py-2 rounded-md text-sm font-normal text-[#1C1917] hover:border-[#FCD34D] hover:text-[#92400E] transition">
                             {{ $p->name }}
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             @endif

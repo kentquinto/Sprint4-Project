@@ -1,63 +1,72 @@
 <section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
-    </header>
+    <h2 class="text-xs font-bold uppercase tracking-widest text-[#A8A29E] mb-6" style="font-family:'Syne',sans-serif;">
+        Profile Information
+    </h2>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
         @csrf
         @method('patch')
 
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-[#A8A29E] mb-2" style="font-family:'Syne',sans-serif;">Name</label>
+                <input type="text" name="name" value="{{ old('name', $user->name) }}" required
+                       class="w-full border-2 border-[#E8E0CC] rounded-lg px-4 py-3 text-sm font-normal text-[#1C1917] focus:outline-none focus:border-[#FCD34D] transition bg-[#FFFDF7]">
+                @error('name') <p class="text-red-600 text-xs font-normal mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-[#A8A29E] mb-2" style="font-family:'Syne',sans-serif;">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user->email) }}" required
+                       class="w-full border-2 border-[#E8E0CC] rounded-lg px-4 py-3 text-sm font-normal text-[#1C1917] focus:outline-none focus:border-[#FCD34D] transition bg-[#FFFDF7]">
+                @error('email') <p class="text-red-600 text-xs font-normal mt-1">{{ $message }}</p> @enderror
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-[#A8A29E] mb-2" style="font-family:'Syne',sans-serif;">Country</label>
+                <input type="text" name="country" value="{{ old('country', $user->country) }}"
+                       class="w-full border-2 border-[#E8E0CC] rounded-lg px-4 py-3 text-sm font-normal text-[#1C1917] focus:outline-none focus:border-[#FCD34D] transition bg-[#FFFDF7]"
+                       placeholder="e.g. Spain">
+                @error('country') <p class="text-red-600 text-xs font-normal mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-[#A8A29E] mb-2" style="font-family:'Syne',sans-serif;">Favourite Game</label>
+                <select name="favorite_game_id"
+                        class="w-full border-2 border-[#E8E0CC] rounded-lg px-4 py-3 text-sm font-normal text-[#1C1917] focus:outline-none focus:border-[#FCD34D] transition bg-[#FFFDF7]">
+                    <option value="">None</option>
+                    @foreach($games as $game)
+                        <option value="{{ $game->id }}" {{ old('favorite_game_id', $user->favorite_game_id) == $game->id ? 'selected' : '' }}>
+                            {{ $game->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('favorite_game_id') <p class="text-red-600 text-xs font-normal mt-1">{{ $message }}</p> @enderror
+            </div>
         </div>
 
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800">
-                        {{ __('Your email address is unverified.') }}
-
-                        <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            {{ __('Click here to re-send the verification email.') }}
-                        </button>
-                    </p>
-
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600">
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
-                    @endif
-                </div>
-            @endif
+            <label class="block text-xs font-bold uppercase tracking-widest text-[#A8A29E] mb-2" style="font-family:'Syne',sans-serif;">Bio</label>
+            <textarea name="bio" rows="3"
+                      class="w-full border-2 border-[#E8E0CC] rounded-lg px-4 py-3 text-sm font-normal text-[#1C1917] focus:outline-none focus:border-[#FCD34D] transition bg-[#FFFDF7]"
+                      placeholder="Tell others a bit about yourself...">{{ old('bio', $user->bio) }}</textarea>
+            @error('bio') <p class="text-red-600 text-xs font-normal mt-1">{{ $message }}</p> @enderror
         </div>
 
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Saved.') }}</p>
+        <div class="pt-2 border-t-2 border-[#E8E0CC] flex items-center gap-4">
+            <button type="submit"
+                    class="bg-[#FCD34D] text-[#1C1917] font-bold text-sm px-8 py-3 rounded-md hover:bg-yellow-300 transition"
+                    style="font-family:'Syne',sans-serif;">
+                Save Changes
+            </button>
+            @if(session('status') === 'profile-updated')
+                <p class="text-sm text-[#78716C] font-normal">Saved.</p>
             @endif
         </div>
     </form>
