@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password'); //edited
+            $table->string('password');
+            $table->text('bio')->nullable();
+            $table->string('country')->nullable();
+            $table->foreignId('favorite_game_id')->nullable()->constrained('games')->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });
