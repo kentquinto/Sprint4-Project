@@ -27,7 +27,7 @@
                 {{-- Logout requires a POST form (Laravel CSRF protection) --}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="text-sm text-gray-500 hover:text-red-500 transition">
+                    <button type="submit" class="text-sm bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
                         Logout
                     </button>
                 </form>
