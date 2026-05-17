@@ -1,29 +1,47 @@
-<nav>
-    <a href="/">TCG MANAGER</a>
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
-    <ul>
-        <li><a href="{{ route('events.index') }}">Events</a></li>
+        {{-- Logo --}}
+        <a href="/" class="flex items-center gap-2 text-blue-600 font-bold text-lg">
+            TCG Manager
+        </a>
 
-        @auth
-            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+        {{-- Nav links + actions --}}
+        <div class="flex items-center gap-6">
+            <a href="/" class="text-sm text-gray-600 hover:text-blue-600 transition">Home</a>
+            <a href="{{ route('events.index') }}" class="text-sm text-gray-600 hover:text-blue-600 transition">Events</a>
 
-            {{-- Links to the logged-in user's own profile edit page --}}
-            <li><a href="{{ route('profile.edit') }}">{{ auth()->user()->name }}</a></li>
+            @auth
+                <a href="{{ route('dashboard') }}" class="text-sm text-gray-600 hover:text-blue-600 transition">Dashboard</a>
 
-            <li><a href="{{ route('events.create') }}">+ Create Event</a></li>
+                {{-- Links to the logged-in user's own profile edit page --}}
+                <a href="{{ route('profile.edit') }}" class="text-sm text-gray-600 hover:text-blue-600 transition">
+                    {{ auth()->user()->name }}
+                </a>
 
-            {{-- Logout requires a POST form (Laravel CSRF protection) --}}
-            <li>
+                <a href="{{ route('events.create') }}"
+                   class="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    + Create Event
+                </a>
+
+                {{-- Logout requires a POST form (Laravel CSRF protection) --}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit">Logout</button>
+                    <button type="submit" class="text-sm text-gray-500 hover:text-red-500 transition">
+                        Logout
+                    </button>
                 </form>
-            </li>
-        @else
-        <div class="flex bg-pink"
-            <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
+            @else
+                <a href="{{ route('login') }}"
+                   class="border border-blue-600 text-blue-600 text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-50 transition">
+                    Login
+                </a>
+                <a href="{{ route('register') }}"
+                   class="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Register
+                </a>
+            @endauth
         </div>
-        @endauth
-    </ul>
+
+    </div>
 </nav>
