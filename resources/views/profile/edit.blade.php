@@ -1,21 +1,27 @@
 <x-app-layout>
-    <div class="max-w-5xl mx-auto px-6 py-6 space-y-5">
 
-        <h1 class="text-xl font-bold text-[#1C1917]" style="font-family:'Syne',sans-serif;">
-            Profile
-        </h1>
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Profile Settings</h1>
+        <p class="text-sm text-gray-500 mt-1">Manage your account information</p>
+    </div>
 
-        <div class="bg-white border-2 border-[#E8E0CC] rounded-xl p-8">
+    <div class="space-y-6">
+
+        {{-- name, email, country, favourite game, bio --}}
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
             @include('profile.partials.update-profile-information-form')
         </div>
 
-        <div class="bg-white border-2 border-[#E8E0CC] rounded-xl p-8">
+        {{-- change password --}}
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
             @include('profile.partials.update-password-form')
         </div>
 
-        <div class="bg-white border-2 border-[#E8E0CC] rounded-xl p-8">
+        {{--delete account --}}
+        <div class="bg-white border border-red-200 rounded-xl p-6">
             @include('profile.partials.delete-user-form')
         </div>
 
     </div>
+
 </x-app-layout>

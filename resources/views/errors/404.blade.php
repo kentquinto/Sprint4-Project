@@ -1,28 +1,19 @@
 <x-app-layout>
-    <div class="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
+    <div class="flex flex-col items-center justify-center text-center py-24">
 
-        <div class="bg-[#1C1917] text-[#FCD34D] text-8xl font-bold px-8 py-4 rounded-xl mb-8 border-4 border-[#FCD34D]"
-             style="font-family:'Syne',sans-serif;">
-            404
-        </div>
-
-        <h1 class="text-3xl font-bold text-[#1C1917] mb-3" style="font-family:'Syne',sans-serif;">
-            Page Not Found
-        </h1>
-
-        <p class="text-[#78716C] text-sm font-normal mb-8 max-w-md">
-            Looks like this card doesn't exist in our deck. The page you're looking for may have been moved or deleted.
+        <p class="text-8xl font-bold text-blue-600 mb-4">404</p>
+        <h1 class="text-2xl font-semibold text-gray-800 mb-2">Page Not Found</h1>
+        <p class="text-sm text-gray-500 mb-8 max-w-sm">
+            The page you're looking for doesn't exist or may have been moved.
         </p>
 
-        <div class="flex gap-4">
+        <div class="flex gap-3">
             <a href="{{ route('events.index') }}"
-               class="bg-[#FCD34D] text-[#1C1917] font-bold text-sm px-6 py-3 rounded-md hover:bg-yellow-300 transition"
-               style="font-family:'Syne',sans-serif;">
+               class="bg-blue-600 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-blue-700 transition">
                 Browse Events
             </a>
             <a href="/"
-               class="bg-[#F5F0E8] text-[#78716C] font-bold text-sm px-6 py-3 rounded-md hover:bg-[#EDE8DF] transition"
-               style="font-family:'Syne',sans-serif;">
+               class="border border-gray-300 text-gray-600 text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-100 transition">
                 Go Home
             </a>
         </div>

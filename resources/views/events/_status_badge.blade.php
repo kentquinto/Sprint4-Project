@@ -1,13 +1,12 @@
 @php
     $config = [
-        'upcoming'  => ['bg' => '#FEF3C7', 'text' => '#92400E', 'label' => 'Upcoming'],
-        'ongoing'   => ['bg' => '#D1FAE5', 'text' => '#065F46', 'label' => 'Ongoing'],
-        'finished'  => ['bg' => '#F3F4F6', 'text' => '#6B7280', 'label' => 'Finished'],
-        'cancelled' => ['bg' => '#FEE2E2', 'text' => '#991B1B', 'label' => 'Cancelled'],
+        'upcoming'  => ['classes' => 'bg-yellow-100 text-yellow-800', 'label' => 'Upcoming'],
+        'ongoing'   => ['classes' => 'bg-green-100 text-green-800',  'label' => 'Ongoing'],
+        'finished'  => ['classes' => 'bg-gray-100 text-gray-600',    'label' => 'Finished'],
+        'cancelled' => ['classes' => 'bg-red-100 text-red-800',      'label' => 'Cancelled'],
     ];
     $s = $config[$status] ?? $config['upcoming'];
 @endphp
-<span class="text-xs font-normal px-3 py-1 rounded-full"
-      style="background:{{ $s['bg'] }};color:{{ $s['text'] }};font-family:'Syne',sans-serif;">
+<span class="text-xs font-medium px-3 py-1 rounded-full {{ $s['classes'] }}">
     {{ $s['label'] }}
 </span>

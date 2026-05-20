@@ -1,27 +1,30 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+<x-app-layout>
+    <div class="max-w-sm mx-auto py-12">
+
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">Confirm Password</h1>
+            <p class="text-sm text-gray-500 mt-1">Please confirm your password before continuing.</p>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl p-6 space-y-5">
+            <form method="POST" action="{{ route('password.confirm') }}" class="space-y-5">
+                @csrf
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Password</label>
+                    <input id="password" type="password" name="password" required autocomplete="current-password"
+                           class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition">
+                    @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <div class="border-t border-gray-100 pt-5">
+                    <button type="submit"
+                            class="w-full bg-blue-600 text-white text-sm font-medium px-6 py-2.5 rounded-lg hover:bg-blue-700 transition">
+                        Confirm
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
-
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
-
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</x-app-layout>
