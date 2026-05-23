@@ -6,7 +6,38 @@
         <p class="text-sm text-gray-500 mt-1">Browse and join TCG events!</p>
     </div>
 
-    {{-- Game filter tabs: clicking a game filters events by that game (?game=id) --}}
+    {{-- Search / Date / Price filters --}}
+    <form method="GET" action="{{ route('events.index') }}" class="flex flex-wrap gap-3 mb-4">
+        @if(request('game'))
+            <input type="hidden" name="game" value="{{ request('game') }}">
+        @endif
+
+        <input type="text" name="search" value="{{ request('search') }}" placeholder="Event title..."
+               class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition w-48">
+
+        <input type="date" name="date" value="{{ request('date') }}"
+               class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition">
+
+        <select name="price" class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition">
+            <option value="">All Prices</option>
+            <option value="free" {{ request('price') === 'free' ? 'selected' : '' }}>Free</option>
+            <option value="paid" {{ request('price') === 'paid' ? 'selected' : '' }}>Paid</option>
+        </select>
+
+        <button type="submit"
+                class="bg-blue-600 text-white text-sm font-medium px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+            Filter
+        </button>
+
+        @if(request('search') || request('date') || request('price'))
+            <a href="{{ route('events.index', request('game') ? ['game' => request('game')] : []) }}"
+               class="border border-gray-300 text-gray-500 text-sm font-medium px-5 py-2 rounded-lg hover:bg-gray-100 transition">
+                Clear
+            </a>
+        @endif
+    </form>
+
+    {{-- Game filter tabs --}}
     <div class="flex gap-2 flex-wrap mb-6">
         <a href="{{ route('events.index') }}"
            class="text-xs font-medium px-4 py-2 rounded-full border transition
