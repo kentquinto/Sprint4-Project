@@ -14,21 +14,21 @@
 
     {{-- Flash messages: driven by controller return back()->with('success'/'error', '...') --}}
     @if(session('success'))
-        <div class="max-w-6xl mx-auto px-6 mt-4">
+        <div class="max-w-screen-2xl mx-auto px-8 mt-4">
             <div class="bg-green-50 border border-green-200 text-green-800 text-sm px-4 py-3 rounded-lg">
                 {{ session('success') }}
             </div>
         </div>
     @endif
     @if(session('error'))
-        <div class="max-w-6xl mx-auto px-6 mt-4">
+        <div class="max-w-screen-2xl mx-auto px-8 mt-4">
             <div class="bg-red-50 border border-red-200 text-red-800 text-sm px-4 py-3 rounded-lg">
                 {{ session('error') }}
             </div>
         </div>
     @endif
 
-    <main class="max-w-6xl mx-auto px-6 py-8">
+    <main class="max-w-screen-2xl mx-auto px-8 py-8">
         {{ $slot }}
     </main>
 

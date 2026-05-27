@@ -26,7 +26,7 @@
     <input type="date" name="date" value="{{ request('date') }}"
            class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition">
 
-    <select name="price" class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition">
+    <select name="price" class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition w-40">
         <option value="">All Prices</option>
         <option value="free" {{ request('price') === 'free' ? 'selected' : '' }}>Free</option>
         <option value="paid" {{ request('price') === 'paid' ? 'selected' : '' }}>Paid</option>
