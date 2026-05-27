@@ -21,6 +21,7 @@ class EventController extends Controller
             ->when($request->date, fn($q) => $q->whereDate('date_time', $request->date))
             ->when($request->price === 'free', fn($q) => $q->where('entry_fee', 0))
             ->when($request->price === 'paid', fn($q) => $q->where('entry_fee', '>', 0))
+            ->when($request->status, fn($q) => $q->where('status', $request->status))
             ->latest()
             ->paginate(12)
             ->withQueryString();

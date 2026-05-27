@@ -14,7 +14,7 @@
     </div>
 </div>
 
-{{-- Search / Date / Price filters --}}
+{{-- Search / Date / Price / Status filters --}}
 <form method="GET" action="{{ route('events.index') }}" class="flex flex-wrap gap-3 mb-4">
     @if(request('game'))
         <input type="hidden" name="game" value="{{ request('game') }}">
@@ -32,12 +32,20 @@
         <option value="paid" {{ request('price') === 'paid' ? 'selected' : '' }}>Paid</option>
     </select>
 
+    <select name="status" class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition w-40">
+        <option value="">All Statuses</option>
+        <option value="upcoming"  {{ request('status') === 'upcoming'  ? 'selected' : '' }}>Upcoming</option>
+        <option value="ongoing"   {{ request('status') === 'ongoing'   ? 'selected' : '' }}>Ongoing</option>
+        <option value="finished"  {{ request('status') === 'finished'  ? 'selected' : '' }}>Finished</option>
+        <option value="cancelled" {{ request('status') === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+    </select>
+
     <button type="submit"
             class="bg-blue-600 text-white text-sm font-medium px-5 py-2 rounded-lg hover:bg-blue-700 transition">
         Filter
     </button>
 
-    @if(request('search') || request('date') || request('price'))
+    @if(request('search') || request('date') || request('price') || request('status'))
         <a href="{{ route('events.index', request('game') ? ['game' => request('game')] : []) }}"
            class="border border-gray-300 text-gray-500 text-sm font-medium px-5 py-2 rounded-lg hover:bg-gray-100 transition">
             Clear
