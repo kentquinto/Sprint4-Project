@@ -109,7 +109,7 @@
                     <h3 class="text-sm font-bold text-gray-900 mb-3">{{ $event->title }}</h3>
                     <div class="space-y-1 text-xs text-gray-400">
                         <p>📍 {{ $event->location }}</p>
-                        <p>📅 {{ \Carbon\Carbon::parse($event->date_time)->format('M d, Y') }}</p>
+                        <p>📅 {{ $event->date_time->format('M d, Y') }}</p>
                         <p>💰 {{ $event->entry_fee > 0 ? '€'.number_format($event->entry_fee, 2) : 'Free' }}</p>
                         <p>👥 {{ $event->participants->count() }} / {{ $event->max_players }} players</p>
                     </div>
@@ -118,6 +118,12 @@
             </a>
         @endforeach
     </div>
+
+    @if($events->hasPages())
+        <div class="mt-6">
+            {{ $events->links() }}
+        </div>
+    @endif
 
 @endif
 

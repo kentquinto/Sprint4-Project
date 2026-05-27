@@ -46,7 +46,7 @@
     <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Event Details</h3>
     <div class="space-y-2 text-sm text-gray-600 mb-6">
         <p>📍 {{ $event->location }}</p>
-        <p>📅 {{ \Carbon\Carbon::parse($event->date_time)->format('F d, Y · h:i A') }}</p>
+        <p>📅 {{ $event->date_time->format('F d, Y · h:i A') }}</p>
         <p>💰 {{ $event->entry_fee > 0 ? '€'.number_format($event->entry_fee, 2) : 'Free entry' }}</p>
         <p>👥 {{ $event->participants->count() }} / {{ $event->max_players }} players</p>
     </div>
@@ -73,8 +73,6 @@
                     </button>
                 </form>
             @else
-                @php $joined = $event->participants->contains(auth()->id()); @endphp
-
                 @if($joined)
                     <form method="POST" action="{{ route('events.leave', $event) }}">
                         @csrf
