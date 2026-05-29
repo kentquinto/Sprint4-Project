@@ -1,5 +1,5 @@
 <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="max-w-screen-2xl mx-auto px-8 h-16 flex items-center justify-between">
 
         {{-- Logo --}}
         <a href="/" class="flex items-center gap-2 text-blue-600 font-bold text-lg">

@@ -14,7 +14,7 @@
     </div>
 </div>
 
-{{-- Search / Date / Price filters --}}
+{{-- Search / Date / Price / Status filters --}}
 <form method="GET" action="{{ route('events.index') }}" class="flex flex-wrap gap-3 mb-4">
     @if(request('game'))
         <input type="hidden" name="game" value="{{ request('game') }}">
@@ -26,10 +26,18 @@
     <input type="date" name="date" value="{{ request('date') }}"
            class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition">
 
-    <select name="price" class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition">
+    <select name="price" class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition w-40">
         <option value="">All Prices</option>
         <option value="free" {{ request('price') === 'free' ? 'selected' : '' }}>Free</option>
         <option value="paid" {{ request('price') === 'paid' ? 'selected' : '' }}>Paid</option>
+    </select>
+
+    <select name="status" class="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition w-40">
+        <option value="">All Statuses</option>
+        <option value="upcoming"  {{ request('status') === 'upcoming'  ? 'selected' : '' }}>Upcoming</option>
+        <option value="ongoing"   {{ request('status') === 'ongoing'   ? 'selected' : '' }}>Ongoing</option>
+        <option value="finished"  {{ request('status') === 'finished'  ? 'selected' : '' }}>Finished</option>
+        <option value="cancelled" {{ request('status') === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
     </select>
 
     <button type="submit"
@@ -37,7 +45,7 @@
         Filter
     </button>
 
-    @if(request('search') || request('date') || request('price'))
+    @if(request('search') || request('date') || request('price') || request('status'))
         <a href="{{ route('events.index', request('game') ? ['game' => request('game')] : []) }}"
            class="border border-gray-300 text-gray-500 text-sm font-medium px-5 py-2 rounded-lg hover:bg-gray-100 transition">
             Clear
@@ -109,7 +117,7 @@
                     <h3 class="text-sm font-bold text-gray-900 mb-3">{{ $event->title }}</h3>
                     <div class="space-y-1 text-xs text-gray-400">
                         <p>📍 {{ $event->location }}</p>
-                        <p>📅 {{ \Carbon\Carbon::parse($event->date_time)->format('M d, Y') }}</p>
+                        <p>📅 {{ $event->date_time->format('M d, Y') }}</p>
                         <p>💰 {{ $event->entry_fee > 0 ? '€'.number_format($event->entry_fee, 2) : 'Free' }}</p>
                         <p>👥 {{ $event->participants->count() }} / {{ $event->max_players }} players</p>
                     </div>
@@ -118,6 +126,12 @@
             </a>
         @endforeach
     </div>
+
+    @if($events->hasPages())
+        <div class="mt-6">
+            {{ $events->links() }}
+        </div>
+    @endif
 
 @endif
 

@@ -12,13 +12,13 @@
         <div>
             <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Created events</h2>
 
-            @forelse(auth()->user()->createdEvents()->with('game')->latest()->get() as $event)
+            @forelse($createdEvents as $event)
                 <a href="{{ route('events.show', $event) }}"
                    class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-4 py-3 mb-3 hover:border-blue-400 transition">
                     <div>
                         <p class="text-sm font-semibold text-gray-800">{{ $event->title }}</p>
                         <p class="text-xs text-gray-400 mt-0.5">
-                            {{ $event->game->name }} &middot; {{ \Carbon\Carbon::parse($event->date_time)->format('M d, Y') }}
+                            {{ $event->game->name }} &middot; {{ $event->date_time->format('M d, Y') }}
                         </p>
                     </div>
                     @include('events._status_badge', ['status' => $event->status])
@@ -38,13 +38,13 @@
         <div>
             <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Joined events</h2>
 
-            @forelse(auth()->user()->participatingEvents()->with('game')->latest()->get() as $event)
+            @forelse($participatingEvents as $event)
                 <a href="{{ route('events.show', $event) }}"
                    class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-4 py-3 mb-3 hover:border-blue-400 transition">
                     <div>
                         <p class="text-sm font-semibold text-gray-800">{{ $event->title }}</p>
                         <p class="text-xs text-gray-400 mt-0.5">
-                            {{ $event->game->name }} &middot; {{ \Carbon\Carbon::parse($event->date_time)->format('M d, Y') }}
+                            {{ $event->game->name }} &middot; {{ $event->date_time->format('M d, Y') }}
                         </p>
                     </div>
                     @include('events._status_badge', ['status' => $event->status])

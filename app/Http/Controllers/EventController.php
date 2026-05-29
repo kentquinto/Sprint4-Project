@@ -21,8 +21,10 @@ class EventController extends Controller
             ->when($request->date, fn($q) => $q->whereDate('date_time', $request->date))
             ->when($request->price === 'free', fn($q) => $q->where('entry_fee', 0))
             ->when($request->price === 'paid', fn($q) => $q->where('entry_fee', '>', 0))
+            ->when($request->status, fn($q) => $q->where('status', $request->status))
             ->latest()
-            ->get();
+            ->paginate(12)
+            ->withQueryString();
         return view('events.index', compact('events'));
     }
 
@@ -43,11 +45,11 @@ class EventController extends Controller
     {
         $request->validate([
             'title'         => 'required|string|max:45',
-            'description'   => 'required|string',
+            'description'   => 'required|string|max:2000',
             'location'      => 'required|string|max:45',
             'entry_fee'     => 'required|numeric|min:0',
             'max_players'   => 'required|integer|min:2',
-            'date_time'     => 'required|date',
+            'date_time'     => 'required|date|after:now',
             'game_id'       => 'required|exists:games,id',
         ]);
         Event::create([
@@ -55,7 +57,7 @@ class EventController extends Controller
             'creator_id'    => Auth::id(),
             'status'        => 'upcoming',
         ]);
-        return redirect()->route('events.index');
+        return redirect()->route('events.index')->with('success', 'Event created successfully!');
     }
         //
 
@@ -65,7 +67,8 @@ class EventController extends Controller
     public function show(Event $event)
     {
         $event->load('game', 'creator', 'participants');
-        return view('events.show', compact('event'));
+        $joined = $event->participants->contains('id', auth()->id());
+        return view('events.show', compact('event', 'joined'));
     }
 
     /**
@@ -88,7 +91,7 @@ class EventController extends Controller
 
         $request->validate([
             'title'       => 'required|string|max:45',
-            'description' => 'required|string',
+            'description' => 'required|string|max:2000',
             'location'    => 'required|string|max:45',
             'entry_fee'   => 'required|numeric|min:0',
             'max_players' => 'required|integer|min:2',
@@ -102,7 +105,7 @@ class EventController extends Controller
             'entry_fee', 'max_players', 'date_time', 'game_id', 'status'
         ]));
 
-        return redirect()->route('events.show', $event);
+        return redirect()->route('events.show', $event)->with('success', 'Event updated successfully!');
     }
 
     /**
@@ -112,7 +115,7 @@ class EventController extends Controller
     {
         $this->authorize('delete', $event);
         $event->delete();
-        return redirect()->route('events.index');
+        return redirect()->route('events.index')->with('success', 'Event deleted successfully!');
         //
     }
 }

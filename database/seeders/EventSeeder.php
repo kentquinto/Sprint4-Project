@@ -12,9 +12,16 @@ class EventSeeder extends Seeder
 {
     public function run(): void
     {
-        $user1 = User::where('email', 'tester1@tcg.com')->first();
-        $user2 = User::where('email', 'tester2@tcg.com')->first();
-        $user3 = User::where('email', 'tester3@tcg.com')->first();
+        $user1  = User::where('email', 'tester1@test.com')->first();
+        $user2  = User::where('email', 'tester2@test.com')->first();
+        $user3  = User::where('email', 'tester3@test.com')->first();
+        $user4  = User::where('email', 'tester4@test.com')->first();
+        $user5  = User::where('email', 'tester5@test.com')->first();
+        $user6  = User::where('email', 'tester6@test.com')->first();
+        $user7  = User::where('email', 'tester7@test.com')->first();
+        $user8  = User::where('email', 'tester8@test.com')->first();
+        $user9  = User::where('email', 'tester9@test.com')->first();
+        $user10 = User::where('email', 'tester10@test.com')->first();
 
         $yugioh   = Game::where('name', 'Yu-Gi-Oh!')->first();
         $pokemon  = Game::where('name', 'Pokémon')->first();
@@ -186,41 +193,100 @@ class EventSeeder extends Seeder
             'game_id'     => $altered->id,
         ]);
 
-        // Participants
-        Participant::create(['event_id' => $e1->id,  'user_id' => $user2->id]);
-        Participant::create(['event_id' => $e1->id,  'user_id' => $user3->id]);
+        // Participants (creator of each event cannot be a participant of their own event)
+        // e1 — creator: user1
+        Participant::create(['event_id' => $e1->id, 'user_id' => $user2->id]);
+        Participant::create(['event_id' => $e1->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e1->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e1->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e1->id, 'user_id' => $user6->id]);
 
-        Participant::create(['event_id' => $e2->id,  'user_id' => $user1->id]);
-        Participant::create(['event_id' => $e2->id,  'user_id' => $user3->id]);
+        // e2 — creator: user2
+        Participant::create(['event_id' => $e2->id, 'user_id' => $user1->id]);
+        Participant::create(['event_id' => $e2->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e2->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e2->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e2->id, 'user_id' => $user6->id]);
+        Participant::create(['event_id' => $e2->id, 'user_id' => $user7->id]);
 
-        Participant::create(['event_id' => $e3->id,  'user_id' => $user2->id]);
-        Participant::create(['event_id' => $e3->id,  'user_id' => $user3->id]);
+        // e3 — creator: user1
+        Participant::create(['event_id' => $e3->id, 'user_id' => $user2->id]);
+        Participant::create(['event_id' => $e3->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e3->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e3->id, 'user_id' => $user5->id]);
 
-        Participant::create(['event_id' => $e4->id,  'user_id' => $user1->id]);
-        Participant::create(['event_id' => $e4->id,  'user_id' => $user2->id]);
+        // e4 — creator: user3
+        Participant::create(['event_id' => $e4->id, 'user_id' => $user1->id]);
+        Participant::create(['event_id' => $e4->id, 'user_id' => $user2->id]);
+        Participant::create(['event_id' => $e4->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e4->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e4->id, 'user_id' => $user6->id]);
+        Participant::create(['event_id' => $e4->id, 'user_id' => $user7->id]);
 
-        Participant::create(['event_id' => $e5->id,  'user_id' => $user1->id]);
-        Participant::create(['event_id' => $e5->id,  'user_id' => $user3->id]);
+        // e5 — creator: user2, status: finished
+        Participant::create(['event_id' => $e5->id, 'user_id' => $user1->id]);
+        Participant::create(['event_id' => $e5->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e5->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e5->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e5->id, 'user_id' => $user6->id]);
+        Participant::create(['event_id' => $e5->id, 'user_id' => $user7->id]);
+        Participant::create(['event_id' => $e5->id, 'user_id' => $user8->id]);
 
-        Participant::create(['event_id' => $e6->id,  'user_id' => $user1->id]);
-        Participant::create(['event_id' => $e6->id,  'user_id' => $user2->id]);
+        // e6 — creator: user3
+        Participant::create(['event_id' => $e6->id, 'user_id' => $user1->id]);
+        Participant::create(['event_id' => $e6->id, 'user_id' => $user2->id]);
+        Participant::create(['event_id' => $e6->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e6->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e6->id, 'user_id' => $user6->id]);
 
-        Participant::create(['event_id' => $e7->id,  'user_id' => $user2->id]);
-        Participant::create(['event_id' => $e7->id,  'user_id' => $user3->id]);
+        // e7 — creator: user1
+        Participant::create(['event_id' => $e7->id, 'user_id' => $user2->id]);
+        Participant::create(['event_id' => $e7->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e7->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e7->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e7->id, 'user_id' => $user6->id]);
+        Participant::create(['event_id' => $e7->id, 'user_id' => $user7->id]);
+        Participant::create(['event_id' => $e7->id, 'user_id' => $user8->id]);
 
-        Participant::create(['event_id' => $e8->id,  'user_id' => $user1->id]);
-        Participant::create(['event_id' => $e8->id,  'user_id' => $user3->id]);
+        // e8 — creator: user2
+        Participant::create(['event_id' => $e8->id, 'user_id' => $user1->id]);
+        Participant::create(['event_id' => $e8->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e8->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e8->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e8->id, 'user_id' => $user6->id]);
 
+        // e10 — creator: user1
         Participant::create(['event_id' => $e10->id, 'user_id' => $user2->id]);
         Participant::create(['event_id' => $e10->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e10->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e10->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e10->id, 'user_id' => $user7->id]);
+        Participant::create(['event_id' => $e10->id, 'user_id' => $user8->id]);
 
+        // e11 — creator: user2
         Participant::create(['event_id' => $e11->id, 'user_id' => $user1->id]);
         Participant::create(['event_id' => $e11->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e11->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e11->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e11->id, 'user_id' => $user6->id]);
+        Participant::create(['event_id' => $e11->id, 'user_id' => $user7->id]);
+        Participant::create(['event_id' => $e11->id, 'user_id' => $user9->id]);
+        Participant::create(['event_id' => $e11->id, 'user_id' => $user10->id]);
 
+        // e12 — creator: user3
         Participant::create(['event_id' => $e12->id, 'user_id' => $user1->id]);
         Participant::create(['event_id' => $e12->id, 'user_id' => $user2->id]);
+        Participant::create(['event_id' => $e12->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e12->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e12->id, 'user_id' => $user6->id]);
 
+        // e13 — creator: user1, status: finished
         Participant::create(['event_id' => $e13->id, 'user_id' => $user2->id]);
         Participant::create(['event_id' => $e13->id, 'user_id' => $user3->id]);
+        Participant::create(['event_id' => $e13->id, 'user_id' => $user4->id]);
+        Participant::create(['event_id' => $e13->id, 'user_id' => $user5->id]);
+        Participant::create(['event_id' => $e13->id, 'user_id' => $user6->id]);
+        Participant::create(['event_id' => $e13->id, 'user_id' => $user7->id]);
+        Participant::create(['event_id' => $e13->id, 'user_id' => $user8->id]);
     }
 }

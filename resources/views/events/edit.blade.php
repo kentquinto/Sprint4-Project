@@ -61,7 +61,7 @@
                     <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Date & Time</label>
                     {{-- Carbon formats the stored date into datetime-local format (Y-m-d\TH:i) --}}
                     <input type="datetime-local" name="date_time"
-                           value="{{ old('date_time', \Carbon\Carbon::parse($event->date_time)->format('Y-m-d\TH:i')) }}"
+                           value="{{ old('date_time', $event->date_time->format('Y-m-d\TH:i')) }}"
                            class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition">
                     @error('date_time') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
